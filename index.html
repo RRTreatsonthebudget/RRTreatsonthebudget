@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RR Treats on the Budget</title>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
   <style>
@@ -13,6 +13,11 @@
       background: url('https://www.transparenttextures.com/patterns/cream-dust.png');
       background-color: #fff4e6;
       color: #4a2f27;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     header {
       background-color: #ffb347;
@@ -43,17 +48,23 @@
       padding: 15px;
       text-align: center;
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .product:hover {
       transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
     .product img {
       width: 100%;
-      height: 180px;
+      max-width: 100%;
+      height: auto;
       object-fit: cover;
       border-radius: 10px;
       cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .product img:hover {
+      opacity: 0.9;
     }
     .price {
       font-weight: bold;
@@ -76,43 +87,51 @@
       display: inline-block;
       margin-top: 10px;
     }
+    footer a:hover {
+      background-color: #2d4373;
+    }
+    .resell {
+      margin-top: 15px;
+      font-size: 0.95em;
+      color: #5a3a2b;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      .product {
+        width: 90%;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://i.postimg.cc/ht1Ltw7F/Pink-Cookies-Typography-Bakery-Food-Logo.png" alt="Logo" />
+    <img src="https://i.postimg.cc/ht1Ltw7F/Pink-Cookies-Typography-Bakery-Food-Logo.png" alt="Logo"/>
     <h1>RR Treats on the Budget</h1>
   </header>
 
   <section class="products">
     <div class="product">
-      <a href="https://i.postimg.cc/XJ9WFwKC/Mango-Graham-1.png" target="_blank">
-        <img src="https://i.postimg.cc/XJ9WFwKC/Mango-Graham-1.png" alt="Mango Graham" />
-      </a>
+      <img src="https://i.postimg.cc/XJ9WFwKC/Mango-Graham-1.png" alt="Mango Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
       <h3>Mango Graham</h3>
       <p>2 slice of mango bar with real mango</p>
       <p class="price">₱22.00</p>
     </div>
     <div class="product">
-      <a href="https://i.postimg.cc/6q7dYp3n/Cookies-Cream-Graham-1.png" target="_blank">
-        <img src="https://i.postimg.cc/6q7dYp3n/Cookies-Cream-Graham-1.png" alt="Cookies and Cream Graham" />
-      </a>
+      <img src="https://i.postimg.cc/6q7dYp3n/Cookies-Cream-Graham-1.png" alt="Cookies and Cream Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
       <h3>Cookies and Cream Graham</h3>
       <p>Vanilla and Cookies that you love</p>
       <p class="price">₱20.00</p>
     </div>
     <div class="product">
-      <a href="https://i.postimg.cc/cJ4TfZQM/Fruit-Salad-Graham-1.png" target="_blank">
-        <img src="https://i.postimg.cc/cJ4TfZQM/Fruit-Salad-Graham-1.png" alt="Fruit Salad Graham" />
-      </a>
+      <img src="https://i.postimg.cc/cJ4TfZQM/Fruit-Salad-Graham-1.png" alt="Fruit Salad Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
       <h3>Fruit Salad Graham</h3>
       <p>Delicious and made from real fruits</p>
       <p class="price">₱22.00</p>
     </div>
     <div class="product">
-      <a href="https://i.postimg.cc/HW50cjq1/Banana-Graham-1.png" target="_blank">
-        <img src="https://i.postimg.cc/HW50cjq1/Banana-Graham-1.png" alt="Banana Graham" />
-      </a>
+      <img src="https://i.postimg.cc/HW50cjq1/Banana-Graham-1.png" alt="Banana Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
       <h3>Banana Graham</h3>
       <p>Real slice of banana</p>
       <p class="price">₱22.00</p>
@@ -122,6 +141,8 @@
   <footer>
     <p>Contact us on Facebook</p>
     <a href="https://web.facebook.com/rrtreatsonthebudget" target="_blank">Visit RR Treats on the Budget</a>
+    <div class="resell">Interested to resell our treats? Email us at <a href="mailto:reerem03@gmail.com">reerem03@gmail.com</a></div>
   </footer>
+
 </body>
 </html>
