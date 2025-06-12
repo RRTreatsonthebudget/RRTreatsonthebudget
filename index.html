@@ -2,147 +2,165 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RR Treats on the Budget</title>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RR Treats Order Management</title>
   <style>
-    body {
-      font-family: 'Chewy', cursive;
-      margin: 0;
-      padding: 0;
-      background: url('https://www.transparenttextures.com/patterns/cream-dust.png');
-      background-color: #fff4e6;
-      color: #4a2f27;
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    header {
-      background-color: #ffb347;
-      padding: 20px;
-      text-align: center;
-    }
-    header img {
-      max-width: 100px;
-      border-radius: 50%;
-    }
-    h1 {
-      margin: 10px 0 0;
-      font-size: 2.5em;
-      color: #7b341e;
-    }
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-      gap: 20px;
-    }
-    .product {
-      background-color: #fffaf4;
-      border: 1px solid #f1c27d;
-      border-radius: 15px;
-      width: 250px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .product:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-    .product img {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-    }
-    .product img:hover {
-      opacity: 0.9;
-    }
-    .price {
-      font-weight: bold;
-      color: #e67300;
-      font-size: 1.2em;
-      margin-top: 8px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #ffcc80;
-      font-size: 1.1em;
-    }
-    footer a {
-      color: white;
-      background-color: #3b5998;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 8px;
-      display: inline-block;
-      margin-top: 10px;
-    }
-    footer a:hover {
-      background-color: #2d4373;
-    }
-    .resell {
-      margin-top: 15px;
-      font-size: 0.95em;
-      color: #5a3a2b;
-    }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.8em;
-      }
-      .product {
-        width: 90%;
-      }
-    }
+    /* Add your CSS here */
+    body { font-family: Arial, sans-serif; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+    .modal-content { background-color: white; margin: 10% auto; padding: 20px; width: 80%; }
+    .close { float: right; cursor: pointer; }
+    .status-badge { padding: 4px 8px; border-radius: 4px; color: #fff; }
+    .status-new { background-color: gray; }
+    .status-processing { background-color: orange; }
+    .status-completed { background-color: green; }
+    .status-cancelled { background-color: red; }
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://i.postimg.cc/ht1Ltw7F/Pink-Cookies-Typography-Bakery-Food-Logo.png" alt="Logo"/>
-    <h1>RR Treats on the Budget</h1>
-  </header>
+  <h1>RR Treats Orders</h1>
 
-  <section class="products">
-    <div class="product">
-      <img src="https://i.postimg.cc/XJ9WFwKC/Mango-Graham-1.png" alt="Mango Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
-      <h3>Mango Graham</h3>
-      <p>2 slice of mango bar with real mango</p>
-      <p class="price">₱22.00</p>
-    </div>
-    <div class="product">
-      <img src="https://i.postimg.cc/6q7dYp3n/Cookies-Cream-Graham-1.png" alt="Cookies and Cream Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
-      <h3>Cookies and Cream Graham</h3>
-      <p>Vanilla and Cookies that you love</p>
-      <p class="price">₱20.00</p>
-    </div>
-    <div class="product">
-      <img src="https://i.postimg.cc/cJ4TfZQM/Fruit-Salad-Graham-1.png" alt="Fruit Salad Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
-      <h3>Fruit Salad Graham</h3>
-      <p>Delicious and made from real fruits</p>
-      <p class="price">₱22.00</p>
-    </div>
-    <div class="product">
-      <img src="https://i.postimg.cc/HW50cjq1/Banana-Graham-1.png" alt="Banana Graham" onclick="window.open('https://web.facebook.com/rrtreatsonthebudget','_blank')"/>
-      <h3>Banana Graham</h3>
-      <p>Real slice of banana</p>
-      <p class="price">₱22.00</p>
-    </div>
-  </section>
+  <input type="text" id="orderSearch" placeholder="Search orders..." onkeyup="filterOrders()">
+  <select id="statusFilter" onchange="filterOrders()">
+    <option value="">All Statuses</option>
+    <option value="new">New</option>
+    <option value="processing">Processing</option>
+    <option value="completed">Completed</option>
+    <option value="cancelled">Cancelled</option>
+  </select>
 
-  <footer>
-    <p>Contact us on Facebook</p>
-    <a href="https://web.facebook.com/rrtreatsonthebudget" target="_blank">Visit RR Treats on the Budget</a>
-    <div class="resell">Interested to resell our treats? Email us at <a href="mailto:reerem03@gmail.com">reerem03@gmail.com</a></div>
-  </footer>
+  <table id="ordersTable" border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="ordersTableBody"></tbody>
+  </table>
+  <div id="ordersPagination"></div>
 
+  <!-- Order Modal (if needed) -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeOrderForm()">&times;</span>
+      <form id="orderForm">
+        <!-- Inputs for name, product, quantity, etc. -->
+        <button type="submit">Submit Order</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let orders = JSON.parse(localStorage.getItem('rrTreatsOrders')) || [];
+    let productPrice = 100; // Default product price
+
+    function closeOrderForm() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function generateOrderId() {
+      return 'RR' + Date.now().toString().slice(-6) + Math.floor(Math.random() * 1000);
+    }
+
+    function formatDate(date) {
+      const d = new Date(date);
+      return d.toLocaleDateString('en-PH', {
+        year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const quantity = parseInt(document.getElementById('quantity').value);
+      const total = (productPrice * quantity);
+
+      const newOrder = {
+        id: generateOrderId(),
+        date: new Date().toISOString(),
+        product: document.getElementById('product').value,
+        quantity: quantity,
+        price: productPrice,
+        total: total,
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        reference: document.getElementById('reference').value,
+        status: 'new'
+      };
+
+      orders.unshift(newOrder);
+      localStorage.setItem('rrTreatsOrders', JSON.stringify(orders));
+      alert(`Thank you for your order! Your order ID is ${newOrder.id}`);
+      this.reset();
+      closeOrderForm();
+      loadOrders();
+    });
+
+    function loadOrders() {
+      const tableBody = document.getElementById('ordersTableBody');
+      tableBody.innerHTML = '';
+
+      if (orders.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No orders found</td></tr>';
+        return;
+      }
+
+      orders.forEach(order => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${formatDate(order.date)}</td>
+          <td>${order.name}</td>
+          <td>${order.product}</td>
+          <td>${order.quantity}</td>
+          <td>${order.total.toFixed(2)}</td>
+          <td><span class="status-badge status-${order.status}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></td>
+          <td>
+            <button onclick="viewOrderDetails('${order.id}')">View</button>
+            <button onclick="updateOrderStatus('${order.id}')">Update</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function updateOrderStatus(orderId) {
+      viewOrderDetails(orderId);
+      document.getElementById(`status-${orderId}`).focus();
+    }
+
+    function saveStatus(orderId) {
+      const newStatus = document.getElementById(`status-${orderId}`).value;
+      const index = orders.findIndex(order => order.id === orderId);
+      if (index !== -1) {
+        orders[index].status = newStatus;
+        localStorage.setItem('rrTreatsOrders', JSON.stringify(orders));
+        loadOrders();
+        alert(`Order ${orderId} status updated to ${newStatus}`);
+      }
+    }
+
+    function filterOrders() {
+      const searchTerm = document.getElementById('orderSearch').value.toLowerCase();
+      const statusFilter = document.getElementById('statusFilter').value;
+      const rows = document.querySelectorAll('#ordersTableBody tr');
+
+      rows.forEach(row => {
+        const rowText = row.textContent.toLowerCase();
+        const matchesSearch = rowText.includes(searchTerm);
+        const matchesStatus = !statusFilter || rowText.includes(statusFilter);
+        row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+      });
+    }
+
+    loadOrders();
+  </script>
 </body>
 </html>
